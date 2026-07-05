@@ -4,8 +4,8 @@ interface QuestionTypeMeta {
   label: string;
   short: string;
   border: string;
-  badge: string; 
-  active: string; 
+  badge: string;
+  active: string;
 }
 
 export const QUESTION_TYPE_META: Record<QuestionType, QuestionTypeMeta> = {

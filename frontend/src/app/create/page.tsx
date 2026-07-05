@@ -41,7 +41,11 @@ const emptyQuestion = (): QuestionForm => ({
   options: optionsForType(QuestionType.INPUT),
 });
 
-const QUESTION_TYPES = [QuestionType.INPUT, QuestionType.BOOLEAN, QuestionType.CHECKBOX];
+const QUESTION_TYPES = [
+  QuestionType.INPUT,
+  QuestionType.BOOLEAN,
+  QuestionType.CHECKBOX,
+];
 
 const CreateQuizPage = () => {
   const router = useRouter();
@@ -51,7 +55,9 @@ const CreateQuizPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   const updateQuestion = (index: number, patch: Partial<QuestionForm>) => {
-    setQuestions((prev) => prev.map((q, i) => (i === index ? { ...q, ...patch } : q)));
+    setQuestions((prev) =>
+      prev.map((q, i) => (i === index ? { ...q, ...patch } : q)),
+    );
   };
 
   const changeQuestionType = (index: number, type: QuestionType) => {
@@ -66,7 +72,9 @@ const CreateQuizPage = () => {
 
   const addOption = (qIndex: number) => {
     setQuestions((prev) =>
-      prev.map((q, i) => (i === qIndex ? { ...q, options: [...q.options, emptyOption()] } : q))
+      prev.map((q, i) =>
+        i === qIndex ? { ...q, options: [...q.options, emptyOption()] } : q,
+      ),
     );
   };
 
@@ -74,19 +82,33 @@ const CreateQuizPage = () => {
     setQuestions((prev) =>
       prev.map((q, i) =>
         i === qIndex
-          ? { ...q, options: q.options.map((o, j) => (j === oIndex ? { ...o, text } : o)) }
-          : q
-      )
+          ? {
+              ...q,
+              options: q.options.map((o, j) =>
+                j === oIndex ? { ...o, text } : o,
+              ),
+            }
+          : q,
+      ),
     );
   };
 
-  const toggleCheckboxOption = (qIndex: number, oIndex: number, isCorrect: boolean) => {
+  const toggleCheckboxOption = (
+    qIndex: number,
+    oIndex: number,
+    isCorrect: boolean,
+  ) => {
     setQuestions((prev) =>
       prev.map((q, i) =>
         i === qIndex
-          ? { ...q, options: q.options.map((o, j) => (j === oIndex ? { ...o, isCorrect } : o)) }
-          : q
-      )
+          ? {
+              ...q,
+              options: q.options.map((o, j) =>
+                j === oIndex ? { ...o, isCorrect } : o,
+              ),
+            }
+          : q,
+      ),
     );
   };
 
@@ -94,17 +116,25 @@ const CreateQuizPage = () => {
     setQuestions((prev) =>
       prev.map((q, i) =>
         i === qIndex
-          ? { ...q, options: q.options.map((o, j) => ({ ...o, isCorrect: j === oIndex })) }
-          : q
-      )
+          ? {
+              ...q,
+              options: q.options.map((o, j) => ({
+                ...o,
+                isCorrect: j === oIndex,
+              })),
+            }
+          : q,
+      ),
     );
   };
 
   const removeOption = (qIndex: number, oIndex: number) => {
     setQuestions((prev) =>
       prev.map((q, i) =>
-        i === qIndex ? { ...q, options: q.options.filter((_, j) => j !== oIndex) } : q
-      )
+        i === qIndex
+          ? { ...q, options: q.options.filter((_, j) => j !== oIndex) }
+          : q,
+      ),
     );
   };
 
@@ -130,8 +160,13 @@ const CreateQuizPage = () => {
         return;
       }
 
-      if (q.type === QuestionType.CHECKBOX && !q.options.some((o) => o.isCorrect)) {
-        setError('Each multiple-choice question needs at least one correct option');
+      if (
+        q.type === QuestionType.CHECKBOX &&
+        !q.options.some((o) => o.isCorrect)
+      ) {
+        setError(
+          'Each multiple-choice question needs at least one correct option',
+        );
         return;
       }
     }
@@ -190,7 +225,9 @@ const CreateQuizPage = () => {
                 className={`flex flex-col gap-3 rounded-md border border-black/10 border-l-4 bg-white p-4 shadow-sm ${meta.border}`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs text-foreground/40">Q{qIndex + 1}</span>
+                  <span className="font-mono text-xs text-foreground/40">
+                    Q{qIndex + 1}
+                  </span>
                   {questions.length > 1 && (
                     <button
                       type="button"
@@ -206,7 +243,9 @@ const CreateQuizPage = () => {
                   className="rounded-md border border-black/15 px-3 py-2 outline-none transition-colors focus:border-indigo-600"
                   placeholder="Question text"
                   value={question.text}
-                  onChange={(e) => updateQuestion(qIndex, { text: e.target.value })}
+                  onChange={(e) =>
+                    updateQuestion(qIndex, { text: e.target.value })
+                  }
                 />
 
                 <div className="flex gap-1.5 rounded-md bg-black/5 p-1">
@@ -219,7 +258,9 @@ const CreateQuizPage = () => {
                         type="button"
                         onClick={() => changeQuestionType(qIndex, type)}
                         className={`flex-1 cursor-pointer rounded px-2 py-1.5 font-mono text-xs uppercase tracking-wide transition-colors ${
-                          isActive ? typeMeta.active : 'text-foreground/50 hover:bg-black/5'
+                          isActive
+                            ? typeMeta.active
+                            : 'text-foreground/50 hover:bg-black/5'
                         }`}
                       >
                         {typeMeta.short}
@@ -233,14 +274,19 @@ const CreateQuizPage = () => {
                     className="rounded-md border border-black/15 px-3 py-2 outline-none transition-colors focus:border-indigo-600"
                     placeholder="Correct answer"
                     value={question.options[0]?.text ?? ''}
-                    onChange={(e) => updateOptionText(qIndex, 0, e.target.value)}
+                    onChange={(e) =>
+                      updateOptionText(qIndex, 0, e.target.value)
+                    }
                   />
                 )}
 
                 {question.type === QuestionType.BOOLEAN && (
                   <div className="flex gap-4">
                     {question.options.map((option, oIndex) => (
-                      <label key={oIndex} className="flex cursor-pointer items-center gap-2 text-sm">
+                      <label
+                        key={oIndex}
+                        className="flex cursor-pointer items-center gap-2 text-sm"
+                      >
                         <input
                           type="radio"
                           name={`boolean-${qIndex}`}
@@ -261,14 +307,22 @@ const CreateQuizPage = () => {
                         <input
                           type="checkbox"
                           checked={option.isCorrect}
-                          onChange={(e) => toggleCheckboxOption(qIndex, oIndex, e.target.checked)}
+                          onChange={(e) =>
+                            toggleCheckboxOption(
+                              qIndex,
+                              oIndex,
+                              e.target.checked,
+                            )
+                          }
                           className="cursor-pointer accent-violet-600"
                         />
                         <input
                           className="flex-1 rounded-md border border-black/15 px-3 py-2 text-sm outline-none transition-colors focus:border-indigo-600"
                           placeholder={`Option ${oIndex + 1}`}
                           value={option.text}
-                          onChange={(e) => updateOptionText(qIndex, oIndex, e.target.value)}
+                          onChange={(e) =>
+                            updateOptionText(qIndex, oIndex, e.target.value)
+                          }
                         />
                         <button
                           type="button"
@@ -302,7 +356,11 @@ const CreateQuizPage = () => {
           + Add question
         </button>
 
-        {error && <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
+        {error && (
+          <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">
+            {error}
+          </p>
+        )}
 
         <button
           type="submit"

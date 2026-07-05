@@ -76,7 +76,10 @@ class QuizController {
       await quizService.deleteQuiz(id);
       res.sendStatus(204);
     } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
         res.status(404).json({ message: 'Quiz not found' });
         return;
       }

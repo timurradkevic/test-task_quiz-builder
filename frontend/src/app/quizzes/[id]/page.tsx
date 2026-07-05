@@ -1,4 +1,4 @@
-import { QuizListItem } from "@/components/QuizListItem/QuizListItem";
+import { QuizListItem } from '@/components/QuizListItem/QuizListItem';
 
 interface PageProps {
   params: Promise<{ id: string }>;

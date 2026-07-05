@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { quizService } from "@/services/quiz.service";
+import { quizService } from '@/services/quiz.service';
 
 export const DeleteButton = ({ id }: { id: string }) => {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -14,7 +14,7 @@ export const DeleteButton = ({ id }: { id: string }) => {
       await quizService.delete(id);
       window.location.href = '/quizzes';
     } catch (error) {
-      console.error("Error deleting quiz:", error);
+      console.error('Error deleting quiz:', error);
       setIsDeleting(false);
     }
   };
@@ -28,4 +28,4 @@ export const DeleteButton = ({ id }: { id: string }) => {
       {isDeleting ? 'Deleting…' : 'Delete quiz'}
     </button>
   );
-}
+};

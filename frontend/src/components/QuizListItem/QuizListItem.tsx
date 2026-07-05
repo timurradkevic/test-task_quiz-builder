@@ -1,9 +1,13 @@
-import { quizService } from "@/services/quiz.service";
-import { Quiz, QuestionType } from "@/types/quiz";
-import { QUESTION_TYPE_META } from "@/lib/question-type";
-import { DeleteButton } from "./DeleteButton";
+import { quizService } from '@/services/quiz.service';
+import { Quiz, QuestionType } from '@/types/quiz';
+import { QUESTION_TYPE_META } from '@/lib/question-type';
+import { DeleteButton } from './DeleteButton';
 
-export const QuizListItem = async ({ params }: { params: Promise<{ id: string }> }) => {
+export const QuizListItem = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
   const { id } = await params;
   const { data: quiz }: { data: Quiz | null } = await quizService.getById(id);
 
@@ -34,7 +38,9 @@ export const QuizListItem = async ({ params }: { params: Promise<{ id: string }>
                 className={`rounded-md border border-black/10 border-l-4 bg-white p-4 shadow-sm ${meta.border}`}
               >
                 <div className="mb-2 flex items-center gap-2">
-                  <span className="font-mono text-xs text-foreground/40">Q{index + 1}</span>
+                  <span className="font-mono text-xs text-foreground/40">
+                    Q{index + 1}
+                  </span>
                   <span
                     className={`rounded-full border px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide ${meta.badge}`}
                   >
@@ -56,7 +62,9 @@ export const QuizListItem = async ({ params }: { params: Promise<{ id: string }>
                       <li
                         key={option.id ?? oIndex}
                         className={`text-sm ${
-                          option.isCorrect ? 'font-medium text-emerald-700' : 'text-foreground/60'
+                          option.isCorrect
+                            ? 'font-medium text-emerald-700'
+                            : 'text-foreground/60'
                         }`}
                       >
                         {option.isCorrect ? '✓ ' : '  '}
@@ -70,7 +78,9 @@ export const QuizListItem = async ({ params }: { params: Promise<{ id: string }>
           })}
         </ol>
       ) : (
-        <p className="text-foreground/60">No questions available for this quiz.</p>
+        <p className="text-foreground/60">
+          No questions available for this quiz.
+        </p>
       )}
     </div>
   );

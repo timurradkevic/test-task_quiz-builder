@@ -1,9 +1,9 @@
 'use client';
 
-import { quizService } from "@/services/quiz.service";
-import { Quiz } from "@/types/quiz";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { quizService } from '@/services/quiz.service';
+import { Quiz } from '@/types/quiz';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export const QuizzesList = () => {
   const [quizzes, setQuizzes] = useState<Quiz[] | null>(null);
@@ -23,7 +23,7 @@ export const QuizzesList = () => {
       await quizService.delete(String(id));
       setQuizzes((prev) => prev?.filter((q) => q.id !== id) ?? null);
     } catch (error) {
-      console.error("Error deleting quiz:", error);
+      console.error('Error deleting quiz:', error);
     } finally {
       setDeletingId(null);
     }
@@ -46,7 +46,10 @@ export const QuizzesList = () => {
       ) : quizzes.length === 0 ? (
         <div className="rounded-md border border-dashed border-black/15 px-6 py-16 text-center">
           <p className="mb-3 text-foreground/60">No quizzes yet.</p>
-          <Link href="/create" className="font-medium text-indigo-700 hover:underline">
+          <Link
+            href="/create"
+            className="font-medium text-indigo-700 hover:underline"
+          >
             Create your first one
           </Link>
         </div>
@@ -57,10 +60,14 @@ export const QuizzesList = () => {
               key={quiz.id}
               className="group relative rounded-md border border-black/10 bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
             >
-              <Link href={`/quizzes/${quiz.id}`} className="flex flex-col gap-1 pr-8">
+              <Link
+                href={`/quizzes/${quiz.id}`}
+                className="flex flex-col gap-1 pr-8"
+              >
                 <h3 className="font-semibold">{quiz.title}</h3>
                 <p className="font-mono text-xs uppercase tracking-wide text-foreground/50">
-                  {quiz._count.questions} question{quiz._count.questions === 1 ? '' : 's'}
+                  {quiz._count.questions} question
+                  {quiz._count.questions === 1 ? '' : 's'}
                 </p>
               </Link>
               <button
@@ -77,4 +84,4 @@ export const QuizzesList = () => {
       )}
     </div>
   );
-}
+};

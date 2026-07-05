@@ -10,8 +10,8 @@ export default function Home() {
         Build quizzes with true/false, text and multiple-choice questions.
       </h1>
       <p className="max-w-xl text-foreground/70">
-        Create a quiz, mix question types, mark the correct answers — then browse or review
-        the structure any time.
+        Create a quiz, mix question types, mark the correct answers — then
+        browse or review the structure any time.
       </p>
       <div className="flex flex-col gap-3 sm:flex-row">
         <Link

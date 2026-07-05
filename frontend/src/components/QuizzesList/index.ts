@@ -1,1 +1,1 @@
-export * from "./QuizzesList";
+export * from './QuizzesList';

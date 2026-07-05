@@ -19,7 +19,9 @@ const questionSchema = z
 
 export const createQuizSchema = z.object({
   title: z.string().trim().min(1, 'Title is required'),
-  questions: z.array(questionSchema).min(1, 'At least one question is required'),
+  questions: z
+    .array(questionSchema)
+    .min(1, 'At least one question is required'),
 });
 
 export type CreateQuizInput = z.infer<typeof createQuizSchema>;
